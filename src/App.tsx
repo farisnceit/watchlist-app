@@ -9,7 +9,7 @@ import { AddTitleModal } from "./components/AddTitleModal";
 import { TYPE_CONFIG, type MediaType, type Status, type ViewMode } from "./types";
 
 export default function App() {
-  const [view, setView] = useState<ViewMode>("movie");
+  const [view, setView] = useState<ViewMode>("upcoming");
   const [status, setStatus] = useState<Status>(TYPE_CONFIG.movie.tabs[0]);
   const [query, setQuery] = useState("");
   const [addOpen, setAddOpen] = useState(false);

@@ -13,6 +13,9 @@ export function useUpcoming() {
     queryKey: ["upcoming"],
     queryFn: async () => {
       const today = new Date().toISOString().slice(0, 10);
+      const oneMonthOut = new Date();
+      oneMonthOut.setMonth(oneMonthOut.getMonth() + 1);
+      const cutoff = oneMonthOut.toISOString().slice(0, 10);
       const supabase = getSupabase();
 
       const [movies, shows] = await Promise.all([
@@ -22,6 +25,7 @@ export function useUpcoming() {
           .eq("media_type", "movie")
           .eq("status", "watch_later")
           .gte("release_date", today)
+          .lte("release_date", cutoff)
           .order("release_date", { ascending: true }),
         supabase
           .from("titles")
@@ -29,6 +33,7 @@ export function useUpcoming() {
           .eq("media_type", "show")
           .in("status", ["watched", "watch_later", "following"])
           .gte("next_episode_air_date", today)
+          .lte("next_episode_air_date", cutoff)
           .order("next_episode_air_date", { ascending: true }),
       ]);
       if (movies.error) throw movies.error;
