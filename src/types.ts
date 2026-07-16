@@ -41,6 +41,15 @@ export interface TitleSeason {
   poster_url: string | null;
 }
 
+export interface TmdbUpcomingMovie {
+  id: string;
+  tmdb_id: number;
+  name: string;
+  poster_url: string | null;
+  release_date: string;
+  overview: string | null;
+}
+
 export interface TitleEpisode {
   id: string;
   title_id: string;

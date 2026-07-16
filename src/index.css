@@ -230,27 +230,56 @@ main{
   background: var(--bg-card);
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 14px 14px 14px 16px;
+  padding: 14px 16px;
   position: relative;
   overflow: hidden;
   display: flex;
   gap: 12px;
 }
 
-.card::before{
-  content:"";
-  position: absolute;
-  left:0; top:0; bottom:0;
-  width: 4px;
-  background: var(--tape, var(--ink-dim));
+.card.watched{
+  border-color: rgba(242, 166, 90, 0.35);
+  background: linear-gradient(rgba(242, 166, 90, 0.09), rgba(242, 166, 90, 0.09)), var(--bg-card);
+}
+.card.watch_later{
+  border-color: rgba(127, 178, 201, 0.35);
+  background: linear-gradient(rgba(127, 178, 201, 0.09), rgba(127, 178, 201, 0.09)), var(--bg-card);
+}
+.card.following{
+  border-color: rgba(143, 191, 154, 0.35);
+  background: linear-gradient(rgba(143, 191, 154, 0.09), rgba(143, 191, 154, 0.09)), var(--bg-card);
+}
+.card.dropped{
+  border-color: rgba(138, 90, 85, 0.4);
+  background: linear-gradient(rgba(138, 90, 85, 0.09), rgba(138, 90, 85, 0.09)), var(--bg-card);
+  opacity: 0.72;
 }
 
-.card.watched{ --tape: var(--amber); }
-.card.watch_later{ --tape: var(--blue); }
-.card.following{ --tape: #8FBF9A; }
-.card.dropped{ --tape: var(--red-dim); opacity: 0.72; }
-.card.upcoming.movie{ --tape: var(--amber); }
-.card.upcoming.show{ --tape: var(--blue); }
+.card.upcoming.movie{
+  border-color: rgba(242, 166, 90, 0.35);
+  background: linear-gradient(rgba(242, 166, 90, 0.12), rgba(242, 166, 90, 0.12)), var(--bg-card);
+}
+.card.upcoming.show{
+  border-color: rgba(127, 178, 201, 0.35);
+  background: linear-gradient(rgba(127, 178, 201, 0.12), rgba(127, 178, 201, 0.12)), var(--bg-card);
+}
+
+.card.upcoming:not(.clickable){
+  border-style: dashed;
+  opacity: 0.82;
+}
+
+.type-label{
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  margin-bottom: 3px;
+}
+.type-label.movie{ color: var(--amber); }
+.type-label.show{ color: var(--blue); }
 
 .card .poster{
   flex: none;
@@ -320,15 +349,6 @@ main{
   font-weight: 600;
 }
 
-.media-badge.movie{
-  background: rgba(242, 166, 90, 0.15);
-  color: var(--amber);
-}
-
-.media-badge.show{
-  background: rgba(127, 178, 201, 0.15);
-  color: var(--blue);
-}
 
 .card .genres{
   font-size: 11px;
