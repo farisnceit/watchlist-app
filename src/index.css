@@ -354,7 +354,6 @@ main{
 .season-row .s-count{ flex: none; width: 44px; text-align: right; }
 
 .status-select{
-  margin-top: 10px;
   width: 100%;
   background: var(--bg-raised);
   border: 1px solid var(--line);
@@ -365,6 +364,21 @@ main{
   font-size: 10.5px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+
+.card-actions{
+  margin-top: 10px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.card-actions .status-select{ flex: 1; margin-top: 0; }
+
+.episodes-btn{
+  flex: none;
+  padding: 6px 10px;
+  font-size: 10.5px;
 }
 
 .empty{
@@ -483,6 +497,83 @@ footer{
 }
 .tmdb-result:hover{ border-color: var(--amber-dim); }
 .tmdb-result.picked{ cursor: default; align-items: center; }
+
+.detail-modal{
+  max-width: 560px;
+  max-height: 82vh;
+  overflow-y: auto;
+}
+
+.season-accordion{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.season-block{
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.season-header{
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--bg-raised);
+  box-sizing: border-box;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.season-count{
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-dim);
+}
+
+.episode-list{
+  display: flex;
+  flex-direction: column;
+}
+
+.episode-row{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.episode-row:hover{ background: rgba(255,255,255,0.03); }
+
+.episode-num{
+  font-family: var(--mono);
+  color: var(--ink-dim);
+  flex: none;
+  width: 34px;
+}
+
+.episode-name{
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.episode-date{
+  flex: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-dim);
+}
 
 @media (max-width: 560px){
   .counter{ grid-template-columns: repeat(2, 1fr); }

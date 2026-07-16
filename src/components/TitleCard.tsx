@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TYPE_CONFIG, type MediaType, type Status, type Title } from "../types";
 import { fmtDate, fmtRuntime } from "../lib/format";
 import { useMutateTitle } from "../hooks/useMutateTitle";
+import { ShowDetail } from "./ShowDetail";
 
 interface Props {
   title: Title;
@@ -10,6 +11,7 @@ interface Props {
 
 export function TitleCard({ title, mediaType }: Props) {
   const [posterFailed, setPosterFailed] = useState(false);
+  const [detailOpen, setDetailOpen] = useState(false);
   const { toggleFavourite, changeStatus } = useMutateTitle();
   const config = TYPE_CONFIG[mediaType];
 
@@ -91,18 +93,28 @@ export function TitleCard({ title, mediaType }: Props) {
           </div>
         )}
 
-        <select
-          className="status-select"
-          value={title.status}
-          onChange={(e) => changeStatus.mutate({ title, status: e.target.value as Status })}
-        >
-          {config.tabs.map((tab) => (
-            <option key={tab} value={tab}>
-              {config.labels[tab]}
-            </option>
-          ))}
-        </select>
+        <div className="card-actions">
+          <select
+            className="status-select"
+            value={title.status}
+            onChange={(e) => changeStatus.mutate({ title, status: e.target.value as Status })}
+          >
+            {config.tabs.map((tab) => (
+              <option key={tab} value={tab}>
+                {config.labels[tab]}
+              </option>
+            ))}
+          </select>
+
+          {mediaType === "show" && (
+            <button className="btn-ghost episodes-btn" onClick={() => setDetailOpen(true)}>
+              Episodes
+            </button>
+          )}
+        </div>
       </div>
+
+      {detailOpen && <ShowDetail title={title} onClose={() => setDetailOpen(false)} />}
     </div>
   );
 }

@@ -31,6 +31,27 @@ export interface Title {
  * it's a merged view across both. */
 export type ViewMode = MediaType | "upcoming";
 
+export interface TitleSeason {
+  id: string;
+  title_id: string;
+  season_number: number;
+  name: string | null;
+  episode_count: number | null;
+  air_date: string | null;
+  poster_url: string | null;
+}
+
+export interface TitleEpisode {
+  id: string;
+  title_id: string;
+  season_number: number;
+  episode_number: number;
+  name: string | null;
+  air_date: string | null;
+  watched: boolean;
+  watched_at: string | null;
+}
+
 export interface TmdbSearchResult {
   tmdb_id: number;
   name: string;
