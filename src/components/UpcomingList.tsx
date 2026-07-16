@@ -28,7 +28,7 @@ export function UpcomingList() {
       <div className="section-title">Upcoming · {items.length}</div>
       <div className="grid">
         {items.map(({ title, date, episodeLabel }) => (
-          <div key={title.id} className="card upcoming">
+          <div key={title.id} className={`card upcoming ${title.media_type}`}>
             {title.poster_url ? (
               <img className="poster" src={title.poster_url} alt={title.name} loading="lazy" />
             ) : (
@@ -42,7 +42,9 @@ export function UpcomingList() {
                 </div>
               </div>
               <div className="meta">
-                <span className="badge">{title.media_type === "movie" ? "Movie" : episodeLabel ?? "Show"}</span>
+                <span className={`badge media-badge ${title.media_type}`}>
+                  {title.media_type === "movie" ? "Movie" : `Show · ${episodeLabel ?? "New ep"}`}
+                </span>
                 <span className="countdown">{fmtCountdown(date)}</span>
               </div>
             </div>
