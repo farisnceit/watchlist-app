@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getSupabase } from "../lib/supabaseClient";
 import type { MediaType, Title } from "../types";
 
-export function useTitles(mediaType: MediaType) {
+export function useTitles(mediaType: MediaType, options?: { enabled?: boolean }) {
   return useQuery({
     queryKey: ["titles", mediaType],
     queryFn: async () => {
@@ -14,5 +14,6 @@ export function useTitles(mediaType: MediaType) {
       if (error) throw error;
       return data as Title[];
     },
+    enabled: options?.enabled ?? true,
   });
 }

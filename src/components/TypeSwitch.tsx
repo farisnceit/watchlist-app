@@ -1,8 +1,8 @@
-import type { MediaType } from "../types";
+import type { ViewMode } from "../types";
 
 interface Props {
-  value: MediaType;
-  onChange: (type: MediaType) => void;
+  value: ViewMode;
+  onChange: (view: ViewMode) => void;
 }
 
 export function TypeSwitch({ value, onChange }: Props) {
@@ -13,6 +13,9 @@ export function TypeSwitch({ value, onChange }: Props) {
       </button>
       <button className={value === "show" ? "active" : ""} onClick={() => onChange("show")}>
         Shows
+      </button>
+      <button className={value === "upcoming" ? "active" : ""} onClick={() => onChange("upcoming")}>
+        Upcoming
       </button>
     </div>
   );

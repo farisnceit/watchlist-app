@@ -21,7 +21,15 @@ export interface Title {
   watched_at: string | null;
   last_watched_at: string | null;
   added_at: string;
+  release_date: string | null;
+  next_episode_air_date: string | null;
+  next_episode_season: number | null;
+  next_episode_number: number | null;
 }
+
+/** The type switch has a third pill ("Upcoming") that isn't a media_type —
+ * it's a merged view across both. */
+export type ViewMode = MediaType | "upcoming";
 
 export interface TmdbSearchResult {
   tmdb_id: number;
@@ -44,7 +52,7 @@ export const TYPE_CONFIG: Record<
   { tabs: Status[]; labels: Record<Status, string> }
 > = {
   movie: {
-    tabs: ["watched", "watch_later"],
+    tabs: ["watch_later", "watched"],
     labels: {
       watched: "Watched",
       watch_later: "Watch later",
@@ -53,7 +61,7 @@ export const TYPE_CONFIG: Record<
     },
   },
   show: {
-    tabs: ["watched", "watch_later", "following", "dropped"],
+    tabs: ["following", "watch_later", "watched", "dropped"],
     labels: {
       watched: "Watched",
       watch_later: "Watch later",

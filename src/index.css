@@ -249,6 +249,7 @@ main{
 .card.watch_later{ --tape: var(--blue); }
 .card.following{ --tape: #8FBF9A; }
 .card.dropped{ --tape: var(--red-dim); opacity: 0.72; }
+.card.upcoming{ --tape: var(--blue); }
 
 .card .poster{
   flex: none;
@@ -311,6 +312,11 @@ main{
   background: rgba(255,255,255,0.06);
   color: var(--ink-dim);
   font-family: var(--mono);
+}
+
+.card .meta .countdown{
+  color: var(--blue);
+  font-weight: 600;
 }
 
 .card .genres{

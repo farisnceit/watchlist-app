@@ -4,20 +4,22 @@ import { TypeSwitch } from "./components/TypeSwitch";
 import { StatusTabs } from "./components/StatusTabs";
 import { SearchBox } from "./components/SearchBox";
 import { TitleGrid } from "./components/TitleGrid";
+import { UpcomingList } from "./components/UpcomingList";
 import { AddTitleModal } from "./components/AddTitleModal";
-import type { MediaType, Status } from "./types";
+import { TYPE_CONFIG, type MediaType, type Status, type ViewMode } from "./types";
 
 export default function App() {
-  const [mediaType, setMediaType] = useState<MediaType>("movie");
-  const [status, setStatus] = useState<Status>("watched");
+  const [view, setView] = useState<ViewMode>("movie");
+  const [status, setStatus] = useState<Status>(TYPE_CONFIG.movie.tabs[0]);
   const [query, setQuery] = useState("");
   const [addOpen, setAddOpen] = useState(false);
 
-  const { data: items = [], isLoading, isError, error } = useTitles(mediaType);
+  const mediaType: MediaType = view === "upcoming" ? "movie" : view;
+  const { data: items = [], isLoading, isError, error } = useTitles(mediaType, { enabled: view !== "upcoming" });
 
-  function handleTypeChange(type: MediaType) {
-    setMediaType(type);
-    setStatus("watched");
+  function handleViewChange(next: ViewMode) {
+    setView(next);
+    if (next !== "upcoming") setStatus(TYPE_CONFIG[next].tabs[0]);
   }
 
   const filtered = useMemo(() => {
@@ -37,24 +39,33 @@ export default function App() {
         </p>
 
         <div className="header-row">
-          <TypeSwitch value={mediaType} onChange={handleTypeChange} />
+          <TypeSwitch value={view} onChange={handleViewChange} />
           <button className="btn-primary add-btn" onClick={() => setAddOpen(true)}>
             + Add
           </button>
         </div>
 
-        <StatusTabs mediaType={mediaType} items={items} value={status} onChange={setStatus} />
+        {view !== "upcoming" && (
+          <StatusTabs mediaType={view} items={items} value={status} onChange={setStatus} />
+        )}
       </header>
 
-      <SearchBox value={query} onChange={setQuery} resultCount={filtered.length} totalCount={items.length} />
-
-      {isLoading && <div className="empty">Loading…</div>}
-      {isError && <div className="empty">Couldn't load your watchlist: {(error as Error).message}</div>}
-      {!isLoading && !isError && <TitleGrid mediaType={mediaType} status={status} items={filtered} />}
+      {view === "upcoming" ? (
+        <UpcomingList />
+      ) : (
+        <>
+          <SearchBox value={query} onChange={setQuery} resultCount={filtered.length} totalCount={items.length} />
+          {isLoading && <div className="empty">Loading…</div>}
+          {isError && <div className="empty">Couldn't load your watchlist: {(error as Error).message}</div>}
+          {!isLoading && !isError && <TitleGrid mediaType={view} status={status} items={filtered} />}
+        </>
+      )}
 
       <footer>Your personal watchlist, synced via Supabase.</footer>
 
-      {addOpen && <AddTitleModal defaultMediaType={mediaType} onClose={() => setAddOpen(false)} />}
+      {addOpen && (
+        <AddTitleModal defaultMediaType={view === "upcoming" ? "movie" : view} onClose={() => setAddOpen(false)} />
+      )}
     </>
   );
 }
