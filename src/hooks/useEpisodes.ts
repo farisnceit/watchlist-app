@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getSupabase } from "../lib/supabaseClient";
 import type { TitleEpisode, TitleSeason } from "../types";
 
-export function useEpisodes(titleId: string) {
+export function useEpisodes(titleId: string, options?: { enabled?: boolean }) {
   return useQuery({
     queryKey: ["episodes", titleId],
+    enabled: options?.enabled ?? true,
     queryFn: async () => {
       const supabase = getSupabase();
       const [seasons, episodes] = await Promise.all([

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TYPE_CONFIG, type MediaType, type Status, type Title } from "../types";
 import { fmtDate, fmtRuntime } from "../lib/format";
 import { useMutateTitle } from "../hooks/useMutateTitle";
-import { ShowDetail } from "./ShowDetail";
+import { TitleDetail } from "./TitleDetail";
 
 interface Props {
   title: Title;
@@ -45,7 +45,15 @@ export function TitleCard({ title, mediaType }: Props) {
     : 0;
 
   return (
-    <div className={`card ${title.status}`}>
+    <div
+      className={`card ${title.status} clickable`}
+      role="button"
+      tabIndex={0}
+      onClick={() => setDetailOpen(true)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") setDetailOpen(true);
+      }}
+    >
       {title.poster_url && !posterFailed ? (
         <img
           className="poster"
@@ -67,7 +75,10 @@ export function TitleCard({ title, mediaType }: Props) {
           <button
             className={"fav-btn" + (title.is_favourite ? " active" : "")}
             aria-label={title.is_favourite ? "Remove favourite" : "Mark favourite"}
-            onClick={() => toggleFavourite.mutate(title)}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleFavourite.mutate(title);
+            }}
           >
             {title.is_favourite ? "★" : "☆"}
           </button>
@@ -93,7 +104,7 @@ export function TitleCard({ title, mediaType }: Props) {
           </div>
         )}
 
-        <div className="card-actions">
+        <div className="card-actions" onClick={(e) => e.stopPropagation()}>
           <select
             className="status-select"
             value={title.status}
@@ -105,16 +116,12 @@ export function TitleCard({ title, mediaType }: Props) {
               </option>
             ))}
           </select>
-
-          {mediaType === "show" && (
-            <button className="btn-ghost episodes-btn" onClick={() => setDetailOpen(true)}>
-              Episodes
-            </button>
-          )}
         </div>
       </div>
 
-      {detailOpen && <ShowDetail title={title} onClose={() => setDetailOpen(false)} />}
+      {detailOpen && (
+        <TitleDetail title={title} mediaType={mediaType} onClose={() => setDetailOpen(false)} />
+      )}
     </div>
   );
 }
