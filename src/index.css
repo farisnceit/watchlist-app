@@ -222,19 +222,19 @@ main{
 
 .grid{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
 }
 
 .card{
   background: var(--bg-card);
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 14px 16px;
+  padding: 10px 12px;
   position: relative;
   overflow: hidden;
   display: flex;
-  gap: 12px;
+  gap: 10px;
 }
 
 .card.watched{
@@ -283,9 +283,9 @@ main{
 
 .card .poster{
   flex: none;
-  width: 56px;
-  height: 84px;
-  border-radius: 5px;
+  width: 44px;
+  height: 66px;
+  border-radius: 4px;
   object-fit: cover;
   background: var(--bg-raised);
   border: 1px solid var(--line);
@@ -311,9 +311,9 @@ main{
 
 .card .name{
   font-weight: 650;
-  font-size: 15px;
-  line-height: 1.3;
-  margin-bottom: 6px;
+  font-size: 13.5px;
+  line-height: 1.28;
+  margin-bottom: 4px;
 }
 
 .fav-btn{
@@ -328,7 +328,7 @@ main{
 
 .card .meta{
   font-family: var(--mono);
-  font-size: 11.5px;
+  font-size: 10.5px;
   color: var(--ink-dim);
   display: flex;
   justify-content: space-between;
@@ -514,14 +514,55 @@ footer{
   cursor: pointer;
   display: flex;
   gap: 10px;
-  padding: 8px;
+  padding: 6px;
   border-radius: 8px;
   background: var(--bg-raised);
   border: 1px solid var(--line);
   text-align: left;
+  align-items: center;
 }
 .tmdb-result:hover{ border-color: var(--amber-dim); }
-.tmdb-result.picked{ cursor: default; align-items: center; }
+.tmdb-result.picked{ cursor: default; }
+
+.tmdb-result .poster{
+  flex: none;
+  width: 40px;
+  height: 60px;
+  border-radius: 4px;
+  object-fit: cover;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+}
+
+.tmdb-result .poster.placeholder{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 16px;
+  color: var(--ink-dim);
+}
+
+.tmdb-result > div{
+  min-width: 0;
+  flex: 1;
+}
+
+.tmdb-result .name{
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tmdb-result .genres{
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .card.clickable{ cursor: pointer; }
 .card.clickable:hover{ border-color: var(--amber-dim); }

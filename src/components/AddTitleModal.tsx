@@ -25,9 +25,13 @@ export function AddTitleModal({ defaultMediaType, onClose }: Props) {
       return;
     }
     const timer = setTimeout(() => {
+      setErrorMsg(null);
       search.mutate(
         { mediaType, query: query.trim() },
-        { onSuccess: setResults },
+        {
+          onSuccess: setResults,
+          onError: (err) => setErrorMsg(`Search failed: ${(err as Error).message}. Check your access code.`),
+        },
       );
     }, 350);
     return () => clearTimeout(timer);
@@ -38,7 +42,10 @@ export function AddTitleModal({ defaultMediaType, onClose }: Props) {
     setErrorMsg(null);
     details.mutate(
       { mediaType, tmdbId: r.tmdb_id },
-      { onSuccess: (title) => title && setPicked(title) },
+      {
+        onSuccess: (title) => title && setPicked(title),
+        onError: (err) => setErrorMsg(`Couldn't load details: ${(err as Error).message}. Check your access code.`),
+      },
     );
   }
 
@@ -87,6 +94,8 @@ export function AddTitleModal({ defaultMediaType, onClose }: Props) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
+
+            {errorMsg && <p className="modal-error">{errorMsg}</p>}
 
             <div className="tmdb-results">
               {search.isPending && <div className="empty">Searching…</div>}
