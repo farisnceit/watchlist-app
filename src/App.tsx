@@ -6,6 +6,7 @@ import { SearchBox } from "./components/SearchBox";
 import { TitleGrid } from "./components/TitleGrid";
 import { UpcomingList } from "./components/UpcomingList";
 import { AddTitleModal } from "./components/AddTitleModal";
+import { navigate } from "./lib/router";
 import { TYPE_CONFIG, type MediaType, type Status, type ViewMode } from "./types";
 
 export default function App() {
@@ -40,9 +41,14 @@ export default function App() {
 
         <div className="header-row">
           <TypeSwitch value={view} onChange={handleViewChange} />
-          <button className="btn-primary add-btn" onClick={() => setAddOpen(true)}>
-            + Add
-          </button>
+          <div className="header-actions">
+            <button className="btn-ghost" onClick={() => navigate("/discover")}>
+              🔥 Discover
+            </button>
+            <button className="btn-primary add-btn" onClick={() => setAddOpen(true)}>
+              + Add
+            </button>
+          </div>
         </div>
 
         {view !== "upcoming" && (

@@ -77,6 +77,17 @@ export type TmdbTitleDetails = Partial<Title> & {
   name: string;
 };
 
+/** One card in the Discover swipe feed — from tmdb-proxy's "swipe_feed"
+ * action (TMDB's general popular-movies list, not scoped to the watchlist). */
+export interface SwipeCandidate {
+  tmdb_id: number;
+  name: string;
+  year: string | null;
+  poster_url: string | null;
+  overview: string | null;
+  vote_average: number | null;
+}
+
 export const TYPE_CONFIG: Record<
   MediaType,
   { tabs: Status[]; labels: Record<Status, string> }
