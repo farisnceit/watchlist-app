@@ -1,0 +1,24 @@
+/** TMDB's movie genre list is effectively static (id/name pairs rarely
+ * change), so it's hardcoded here rather than fetched through a proxy
+ * action — one less network round-trip for the Advance search page. */
+export const MOVIE_GENRES: { id: number; name: string }[] = [
+  { id: 28, name: "Action" },
+  { id: 12, name: "Adventure" },
+  { id: 16, name: "Animation" },
+  { id: 35, name: "Comedy" },
+  { id: 80, name: "Crime" },
+  { id: 99, name: "Documentary" },
+  { id: 18, name: "Drama" },
+  { id: 10751, name: "Family" },
+  { id: 14, name: "Fantasy" },
+  { id: 36, name: "History" },
+  { id: 27, name: "Horror" },
+  { id: 10402, name: "Music" },
+  { id: 9648, name: "Mystery" },
+  { id: 10749, name: "Romance" },
+  { id: 878, name: "Science Fiction" },
+  { id: 10770, name: "TV Movie" },
+  { id: 53, name: "Thriller" },
+  { id: 10752, name: "War" },
+  { id: 37, name: "Western" },
+];

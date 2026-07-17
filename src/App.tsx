@@ -42,6 +42,9 @@ export default function App() {
         <div className="header-row">
           <TypeSwitch value={view} onChange={handleViewChange} />
           <div className="header-actions">
+            <button className="btn-ghost" onClick={() => navigate("/search")}>
+              🔍 Search
+            </button>
             <button className="btn-ghost" onClick={() => navigate("/discover")}>
               🔥 Discover
             </button>
